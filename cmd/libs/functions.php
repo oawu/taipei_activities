@@ -106,3 +106,75 @@ if (!function_exists ('directory_map')) {
     return false;
   }
 }
+
+if (!function_exists ('write_file')) {
+  function write_file ($path, $data, $mode = 'wb') {
+    if (!$fp = @fopen ($path, $mode)) return false;
+
+    flock($fp, LOCK_EX);
+    fwrite($fp, $data);
+    flock($fp, LOCK_UN);
+    fclose($fp);
+
+    return true;
+  }
+}
+if (!function_exists ('column_array')) {
+  function column_array ($objects, $key) {
+    return array_map (function ($object) use ($key) {
+      return !is_array ($object) ? is_object ($object) ? $object->$key : $object : $object[$key];
+    }, $objects);
+  }
+}
+
+if (!function_exists ('datetime')) {
+  function datetime ($time) {
+    return preg_replace_callback ('/(\d{4})\/(\d{1,2})\/(\d{1,2})\s+(\S+)\s+(\d{1,2}):(\d{1,2}):(\d{1,2})/', function ($matches) {
+        return date ('Y-m-d H:i:s', strtotime ($matches[1] . '-' . sprintf ('%02d', $matches[2]) . '-' . sprintf ('%02d', $matches[3]) . ' ' . sprintf ('%02d', $matches[5] + ($matches[4] == '下午' ? 12 : ($matches[4] =='上午' && $matches[5] == 12 ? -12 : 0))) . ':' . sprintf ('%02d', $matches[6]) . ':' . sprintf ('%02d', $matches[7])));
+      }, $time);
+  }
+}
+
+if (!function_exists ('make_click_enable_link')) {
+  function make_click_enable_link ($text, $maxLength = 0, $linkText = '', $attributes = 'target="_blank"') {
+    return preg_replace_callback ('/(https?:\/\/)[~\S]+/u', function ($matches) use ($maxLength, $linkText, $attributes) {
+      $text = $linkText ? $linkText : $matches[0];
+      $text = $maxLength > 0 ? mb_strimwidth ($text, 0, $maxLength, '…','UTF-8') : $text;
+      return '<a href="' . $matches[0] . '"' . ($attributes ? ' ' . $attributes : '') . '>' . $text . '</a>';
+    }, $text);
+  }
+}
+if (!function_exists ('remove_ckedit_tag')) {
+  function remove_ckedit_tag ($text) {
+    return preg_replace ("/\s+/u", ' ', trim (strip_tags ($text)));
+  }
+}
+if (!function_exists ('make_click_enable_link')) {
+  function make_click_enable_link ($text, $maxLength = 0, $linkText = '', $attributes = 'target="_blank"') {
+    return preg_replace_callback ('/(https?:\/\/)[~\S]+/u', function ($matches) use ($maxLength, $linkText, $attributes) {
+      $text = $linkText ? $linkText : $matches[0];
+      $text = $maxLength > 0 ? mb_strimwidth ($text, 0, $maxLength, '…','UTF-8') : $text;
+      return '<a href="' . $matches[0] . '"' . ($attributes ? ' ' . $attributes : '') . '>' . $text . '</a>';
+    }, $text);
+  }
+}
+if (!function_exists ('load_view')) {
+  function load_view ($__o__p__ = '', $__o__d__ = array ()) {
+    if (!$__o__p__) return '';
+
+    extract ($__o__d__);
+    ob_start ();
+    if (((bool)@ini_get ('short_open_tag') === FALSE) && (false == TRUE)) echo eval ('?>'.preg_replace ("/;*\s*\?>/", "; ?>", str_replace ('<?=', '<?php echo ', file_get_contents ($__o__p__))));
+    else include $__o__p__;
+    $buffer = ob_get_contents ();
+    @ob_end_clean ();
+
+    return $buffer;
+  }
+}
+
+if (!function_exists ('oa_meta')){
+  function oa_meta ($attributes = array ()) {
+    return $attributes ? '<meta ' . implode (' ', array_map (function ($attribute, $value) { return $attribute . '="' . $value . '"'; }, array_keys ($attributes), $attributes)) . ' />' : '';
+  }
+}

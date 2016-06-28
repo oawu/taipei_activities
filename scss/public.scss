@@ -5,19 +5,35 @@
 
 @import "_oa";
 
-@include font-face("Monaco", font-files("monaco/monaco.ttf", "monaco/monaco.otf"));
-// @include font-face("icomoon", font-files("icomoon/icomoon.eot", "icomoon/icomoon.woff", "icomoon/icomoon.ttf", "icomoon/icomoon.svg"));
-// [class^="icon-"], [class*=" icon-"] {
-//   font-family: 'icomoon', Monaco, "微軟正黑體", "Microsoft JhengHei";
-//   speak: none;
-//   font-style: normal;
-//   font-weight: normal;
-//   font-variant: normal;
-//   text-transform: none;
-//   line-height: 1;
+@include font-face("icomoon", font-files("icomoon/icomoon.eot", "icomoon/icomoon.woff", "icomoon/icomoon.ttf", "icomoon/icomoon.svg"));
+[class^="icon-"], [class*=" icon-"] {font-family: 'icomoon', Roboto,'Helvetica Neue',Helvetica,Arial,'Hiragino Maru Gothic ProN','メイリオ','ヒラギノ丸ゴ ProN W4','微軟正黑體',Meiryo,'Droid Sans';speak: none; font-style: normal; font-weight: normal; font-variant: normal; text-transform: none; line-height: 1;@include font-smoothing(antialiased);}
 
-//   @include font-smoothing(antialiased);
-// }
+.icon-t:before {
+    content: "\e901";
+}
+.icon-u:before {
+    content: "\e900";
+}
+.icon-g:before {
+    content: "\f00a";
+}
+.icon-h:before {
+    content: "\e986";
+}
+.icon-c:before {
+    content: "\e5ca";
+}
+.icon-ra:before {
+    content: "\e315";
+}
+.icon-m:before {
+    content: "\e5d2";
+}
+.icon-s:before {
+    content: "\f064";
+}
+
+
 
 * {
   &, &:after, &:before {
@@ -27,9 +43,12 @@
     @include font-smoothing(antialiased);
   }
 }
+$headerHeight: 55px;
+$header_rWidth: 90px;
 
 html {
   height: 100%;
+  overflow-y: scroll;
 
   body {
     position: relative;
@@ -38,24 +57,648 @@ html {
     margin: 0;
     width: 100%;
     height: 100%;
-    font-size: medium;
-    font-family: Monaco, "微軟正黑體", "Microsoft JhengHei";
+    font-size: 15px;
+    font-family: Roboto,'Helvetica Neue',Helvetica,Arial,'Hiragino Maru Gothic ProN','メイリオ','ヒラギノ丸ゴ ProN W4','微軟正黑體',Meiryo,'Droid Sans';
     background: $mainBackgroundColor $mainBackgroundImage;
-    color: rgba(50, 50, 50, 0.8);
+    color: rgba(55, 55, 55, 1);
 
     @include font-smoothing(antialiased);
-    
-    #container {
-      position: relative;
-      display: block;
+  }
+}
+
+body > header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: inline-block;
+  width: 100%;
+  height: $headerHeight;
+  line-height: $headerHeight - 1px;
+  background-color: $mainColor;
+  border-top: 5px solid rgba(0, 0, 0, .300);
+  border-bottom: 1px solid rgba(0, 0, 0, .100);
+  z-index: 99;
+  
+  > div {
+    display: inline-block;
+    max-width: $mainWidth;
+    width: 100%;
+    margin: 0 auto;
+    @include clearfix();
+    > a {
+      float: left;
+      display: none;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+
+      &:before {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        color: rgba(250, 250, 250, 1.00);
+        font-size: 30px;
+        padding-top: 8px;
+      }
+    }
+    > h1 {
+      float: left;
+      display: inline-block;
+      height: $headerHeight - 6px;
+      line-height: $headerHeight - 6px - 1px;
+      max-width: calc(100% - #{$header_rWidth});
+      color: rgba(250, 250, 250, 1.00);
+      font-weight: normal;
       margin: 0 auto;
-      max-width: $mainWidth;
+      font-size: 20px;
+      text-align: left;
+      @include overflow-docx3();
 
-      padding: 0 10px;
+      a {
+        display: inline-block;
+        color: rgba(250, 250, 250, 1.00);
+        text-decoration: none;
+        padding: 5px 10px;
+        padding-left: 5px;
+        height: $headerHeight - 6px;
+        line-height: $headerHeight - 6px - 1px - 8px;
+      }
+    }
+    > div {
+      float: right;
+      width: $header_rWidth;
+      height: $headerHeight - 6px;
+      @include clearfix();
+      
+      a {
+        float: right;
+        display: inline-block;
+        width: 35px;
+        height: $headerHeight - 6px - 5px * 2;
+        font-size: 20px;
+        margin: 5px;
+        text-decoration: none;
+        cursor: pointer;
 
-      @media screen and (min-width: #{$mainWidth}) {
-        padding: 0;
+        &:before {
+          display: inline-block;
+          width: 100%;
+          height: 100%;
+          line-height: 35px;
+          color: rgba(161, 195, 224, 1.00);
+        }
       }
     }
   }
+}
+
+#container {
+  display: table;
+  max-width: $mainWidth;
+  width: 100%;
+  margin: 0 auto;
+
+  > div {
+    // display: inline-block;
+    display: table-row;
+
+    // @include clearfix();
+    $lWidth: 150px;
+    
+    > div:nth-child(1) {
+      padding-top: $headerHeight;
+      // display: inline-block;
+      display: table-cell;
+      // float: left;
+      width: $lWidth;
+      padding-bottom: 40px;
+      
+      span {
+        display: inline-block;
+        width: 100%;
+        padding: 8px 0;
+        font-size: 13px;
+        text-align: left;
+        padding-left: 5px;
+      }
+      ul {
+        display: inline-block;
+        width: 100%;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        @include border-left-radius(2px);
+        overflow: hidden;
+        + span {
+          margin-top: 15px;
+        }
+
+        @include box-shadow(0 0 1px rgba(39, 40, 34, .300));
+        
+        li {
+          position: relative;
+          display: inline-block;
+          width: 100%;
+          padding: 7px 0;
+          background-color: rgba(255, 255, 255, 1.00);
+
+          a {
+            @include a;
+            width: 100%;
+            height: 100%;
+            text-align: left;
+            padding-left: 10px;
+            cursor: pointer;
+
+            &.a {
+              position: relative;
+
+              &:after {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                display: inline-block;
+                width: 3px;
+                height: 100%;
+                background-color: rgba(21, 105, 178, 1.00);
+                @include border-right-radius(2px);
+                @include animation(_l_a 1s);
+              }
+            }
+            &:before {
+              @include icomoon-font('icomoon') { content: "\e901"; };
+              display: inline-block;
+
+              width: 25px;
+              height: 25px;
+              line-height: 25px - 2px;
+              font-weight: normal;
+              color: rgba(39, 40, 34, .350);
+            }
+          }
+
+          + li {
+            
+            &:before {
+              content: '';
+              position: absolute;
+              top: -1px;
+              left: 30px;
+              display: inline-block;
+              width: calc(100% - 30px - 1px);
+              height: 1px;
+              background-color: rgba(39, 40, 34, .10);
+            }
+          }
+        }
+      }
+    }
+    > div:nth-child(2) {
+      position: relative;
+      // float: right;
+      // display: inline-block;
+      display: table-cell;
+
+      width: calc(100% - #{$lWidth});
+      min-height: 500px;
+      overflow: hidden;
+      background-color: rgba(255, 255, 255, 1.00);
+      @include box-shadow(0 0 1px rgba(39, 40, 34, .300));
+      @include border-bottom-radius(2px);
+      padding-top: $headerHeight + 15px;
+      padding-left: 25px;
+      padding-right: 25px;
+      padding-bottom: 25px;
+      text-align: left;
+    }
+    > div:nth-child(3) {
+      display: none;
+    }
+  }
+}
+
+.condition {
+  text-align: left;
+  margin-top: 10px;
+  margin-bottom: 0;
+  position: relative;
+
+  .fb-like {
+    position: absolute;
+    right: 5px;
+    top: 43px;
+    display: inline-block;
+    // @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+    //   top: 45px;
+    //   right: 5px;
+    // }
+  }
+  label {
+    position: relative;
+    display: inline-block;
+    max-width: 400px;
+    width: calc(100% - 5px * 2);
+    cursor: pointer;
+  }
+  label:nth-child(1) {
+    width: 100%;
+    max-width: 100%;
+
+    input {
+      @include input;
+      width: 100%;
+      padding-right: 35px;
+    }
+    i {
+      position: absolute;
+      right: 0;
+      top: 5px;
+      display: inline-block;
+      width: 30px;
+      height: 20px;
+      cursor: pointer;
+      text-align: center;
+
+      &:before {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        padding-top: 2px;
+        font-size: 14px;
+        color: rgba(39, 40, 34, .500);
+        border-left: 1px solid rgba(39, 40, 34, .100);
+
+      }
+    }
+  }
+  label:nth-child(2) {
+    margin-top: 10px;
+    text-align: left;
+    padding: 5px 0;
+
+    input {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 1;
+      @include opacity(0);
+
+      &:checked {
+        ~ span {
+          &:before {
+            color: rgba(15, 74, 125, 1.00);
+          }
+        }
+      }
+    }
+    span {
+      position: relative;
+      z-index: 2;
+      padding-left: 22px;
+
+      &:before {
+        @include icomoon-font('icomoon') { content: "\e5ca"; };
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: inline-block;
+        width: 17px;
+        height: 17px;
+        border: 1px solid rgba(15, 74, 125, .7500);
+        color: transparent;
+        background-color: rgba(255, 255, 255, 1.00);
+        font-size: 23px;
+        line-height: 10px;
+        font-weight: bold;
+        @include border-radius(2px);
+        @include transition(color .3s);
+      }
+    }
+  }
+}
+#activities {
+  .no_data {
+    display: inline-block;
+    width: calc(100% - 5px * 2);
+    margin: 5px;
+    text-align: center;
+    font-size: 18px;
+    margin-top: 45px;
+  }
+  .activity {
+    display: none;
+    width: calc(100% - 5px * 2);
+    margin: 5px;
+    margin-top: 25px;
+
+    text-align: left;
+    @include clearfix();
+    &.s {
+      display: inline-block;
+    }
+    > h2 {
+      display: inline-block;
+      float: left;
+      width: 100%;
+      border-bottom: 1px solid rgba(39, 40, 34, .100);
+      font-size: 18px;
+      line-height: 23px - 2px;
+      padding: 5px;
+      padding-bottom: 10px;
+      margin-bottom: 17px;
+      color: rgba(65, 65, 65, 1);
+      font-weight: normal;
+      line-height: 25px
+    }
+    > a {
+      display: inline-block;
+      float: left;
+      width: 150px;
+      height: 130px;
+      margin-left: 20px;
+      margin-right: 20px;
+      margin-bottom: 10px;
+      overflow: hidden;
+      @include border-radius(2px);
+      @include box-shadow(0 0 1px rgba(0, 0, 0, .5));
+      img {
+        width: 100%;
+      }
+    }
+    .description {
+      font-size: 14px;
+      padding: 10px;
+      color: rgba(100, 100, 100, 1);
+      line-height: 25px;
+
+      a {
+        @include a;
+      }
+      a:last-child {
+        font-size: 10px;
+        margin-top: 5px;
+        display: inline;
+        line-height: 26px;
+
+        &:before {
+          display: inline-block;
+          content: '詳細內容 »';
+        }
+      }
+    }
+    .info {
+      @include clearfix();
+       
+      a {
+        float: left;
+        display: inline-block;
+        border: 1px solid rgba(39, 40, 34, .200);
+        font-size: 10px;
+        color: rgba(100, 100, 100, 1);
+        padding: 0 5px;
+        margin: 2px 5px;
+        cursor: pointer;
+        text-decoration: none;
+        @include border-radius(2px);
+        @include transition(all .3s);
+
+        &:hover {
+          background-color: rgba(113, 113, 113, 1.00);
+          border: 1px solid rgba(113, 113, 113, 1.00);
+          color: rgba(255, 255, 255, 1.00);
+        }
+      } 
+    }
+  }
+
+  @media screen and (min-width: 0) and (max-width: #{$mediaMobileWidth - 1px}) {
+    .activity {
+      position: relative;
+      overflow: hidden;
+      @include border-radius(3px);
+      @include box-shadow(0 0 1px rgba(0, 0, 0, .5));
+
+      > a {
+        width: 100%;
+        margin: 0;
+        height: 150px;
+      }
+      > h2 {
+        position: absolute;
+        top: 150px - 50px;
+        left: 0;
+        display: inline-block;
+        width: 100%;
+        height: 50px;
+        margin: 0;
+        border: 0;
+        
+        @include background-image(linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .5) 100%));
+        &:before {
+          color: rgba(230, 230, 230, 1);
+          border-width: 0;
+          padding-top: 2px;
+        }
+        a {
+          margin-top: 17px;
+          display: inline-block;
+          width: 100%;
+          color: rgba(255, 255, 255, 1);
+          @include overflow-docx3();
+          @include text-shadow(0 0 3px rgba(39, 40, 34, .5));
+        }
+      }
+      .description {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        max-height: 200px;
+        min-height: 100px;
+        padding: 10px;
+        overflow: hidden;
+
+        a:last-child {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          display: inline-block;
+          width: 100%;
+          height: 100%;
+
+          @include background-image(linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 1) 74%, rgba(255, 255, 255, 1) 100%));
+
+          &:before {
+            position: absolute;
+            bottom: 10px;
+            left: calc(50% - 130px / 2);
+            text-align: center;
+            display: inline-block;
+            width: 130px;
+            padding: 5px 10px;
+            color: rgba(59, 110, 192, 1.00);
+            overflow: hidden;
+            background-color: rgba(255, 255, 255, 1);
+            @include border-radius(2px);
+            @include box-shadow(0 0 1px rgba(0, 0, 0, .7));
+          }
+        }
+      }
+      .info {
+        display: none;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
+  body > header {
+    > div {
+      > a {
+        display: inline-block;
+        height: $headerHeight - 6px;
+      }
+      h1 {
+        position: relative;
+        max-width: calc(100% - #{$header_rWidth} - 40px);
+      }
+    }
+  }
+  #container {
+    &, > div, > div > div {
+      display: inline-block !important;
+      width: 100%;
+    }
+    > div > div:nth-child(1) {
+      position: fixed;
+      top: 0;
+      float: none;
+      height: 100%;
+      width: 230px;
+      z-index: 1;
+      background-color: rgba(255, 255, 255, 1.00);
+      margin-top: 0;
+      padding-top: 0;
+      overflow: hidden;
+      left: 0 - 230px - 5px;
+      @include opacity(0);
+      @include transition(left .3s, opacity .3s);
+      @include box-shadow(0 0 10px rgba(39, 40, 34, .500));
+      z-index: 101;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      
+      &:before {
+        content: '台北 • 藝文活動';
+        display: inline-block;
+        width: 100%;
+        min-height: $headerHeight;
+        padding: 15px 5px;
+        background-color: rgba(21, 105, 178, 1.00);
+        color: rgba(255, 255, 255, 1.00);
+        font-size: 25px;
+      }
+    }
+    > div > div:nth-child(2) {
+      width: 100%;
+      padding-top: $headerHeight + 5px;
+      padding-left: 5px;
+      padding-right: 5px;
+      padding-bottom: 5px;
+      z-index: 2;
+    }
+    > div > div:nth-child(3) {
+      position: fixed;
+      top: 0;
+      right: calc(-5px - 100%);
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(39, 40, 34, .500);
+      z-index: 100;
+      @include transition(right .3s, opacity .3s);
+    }
+  }
+  body {
+    &.s {
+      #container {
+        > div > div:nth-child(1) {
+          left: 0;
+          @include opacity(1);
+        }
+        > div > div:nth-child(3) {
+          right: 0;
+          @include opacity(1); 
+        }
+      }
+    }
+  }
+}
+
+// footer
+body > footer {
+  margin: 0 auto;
+  padding: 50px 0;
+  @include clearfix();
+
+  @media screen and (min-width: 0px) and (max-width: #{$mediaMiniMobileWidth - 1px}) {
+    padding-top: 50px;
+    $footerWidth: 220px;
+    > div {
+      &:first-child, &:last-child {
+        width: calc(50% - #{$footerWidth / 2});
+      }
+      &:not(:first-child):not(:last-child) {
+        font-size: 14px;
+        width: $footerWidth;
+      }
+    }
+  }
+  @media screen and (min-width: $mediaMiniMobileWidth) {
+    padding-top: 100px;
+    $footerWidth: 250px;
+    > div {
+      &:first-child, &:last-child {
+        width: calc(50% - #{$footerWidth / 2});
+      }
+      &:not(:first-child):not(:last-child) {
+        width: $footerWidth;
+      }
+    }
+  }
+
+  > div {
+    float: left;
+    height: 100%;
+
+    &:first-child, &:last-child {
+      display: inline-block;
+      background-color: rgba(202, 200, 199, 1);
+      height: 1px;
+      margin-top: 20px;
+    }
+    &:not(:first-child):not(:last-child) {
+      display: inline-block;
+
+      > div {
+        &:first-child {
+          color: rgba(120, 120, 120, 1);
+          font-weight: bold;
+        }
+        &:last-child {
+          margin-top: 5px;
+          color: rgba(105, 105, 105, 1);
+          
+          a {
+            @include a;
+          }
+        }
+      }
+    }
+  }
+}
+@include keyframes(_l_a){
+  0% { top: 50%; height: 0; }
+  75% { top: 50%; height: 0; }
+  100% { top: 0; height: 100%;}
 }
