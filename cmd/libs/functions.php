@@ -35,9 +35,10 @@ if (!function_exists ('color')) {
 
 if (!function_exists ('merge_array_recursive')) {
   function merge_array_recursive ($files, &$a, $k = null) {
-    foreach ($files as $key => $file)
-      if (is_array ($file)) $key . merge_array_recursive ($file, $a, ($k ? $k . DIRECTORY_SEPARATOR : '') . $key);
-      else array_push ($a, ($k ? $k . DIRECTORY_SEPARATOR : '') . $file);
+    if ($files)
+      foreach ($files as $key => $file)
+        if (is_array ($file)) $key . merge_array_recursive ($file, $a, ($k ? $k . DIRECTORY_SEPARATOR : '') . $key);
+        else array_push ($a, ($k ? $k . DIRECTORY_SEPARATOR : '') . $file);
   }
 }
 

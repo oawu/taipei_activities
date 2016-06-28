@@ -8,12 +8,12 @@
 date_default_timezone_set ('Asia/Taipei');
 mb_internal_encoding ('UTF-8');
 mb_regex_encoding ("UTF-8");
-
-include_once 'libs/functions.php';
-
 define ('PROTOCOL', "http://");
 define ('FCPATH', implode (DIRECTORY_SEPARATOR, explode (DIRECTORY_SEPARATOR, dirname (str_replace (pathinfo (__FILE__, PATHINFO_BASENAME), '', __FILE__)))) . '/');
 define ('NAME', ($temps = array_filter (explode (DIRECTORY_SEPARATOR, FCPATH))) ? end ($temps) : '');
+
+include_once FCPATH . 'cmd/libs/functions.php';
+
 if (!NAME) {
   echo "\n" . str_repeat ('=', 80) . "\n";
   echo ' ' . color ('◎', 'R') . ' ' . color ('錯誤囉！', 'r') . color ('請確認常數 NAME 是否正確，請洽詢設計者', 'p') . ' ' . color ('OA Wu', 'W') . '(http://www.ioa.tw)' . color ('！', 'p') . '  ' . color ('◎', 'R');
@@ -62,7 +62,7 @@ echo str_repeat ('-', 80) . "\n";
 $url = 'http://data.ntpc.gov.tw/od/data/api/A97AEE33-4109-457B-9FB1-DB754A0BB100?$format=json';
 $data = array ();
 
-include_once 'libs' . DIRECTORY_SEPARATOR . 'phpquery.php';
+include_once FCPATH . 'cmd/libs' . DIRECTORY_SEPARATOR . 'phpquery.php';
 
 if (!$activities = urldecode (file_get_contents ($url))) {
   echo ' ➜ ' . color ('API 取得資料失敗..', 'r') . "\n";
@@ -106,7 +106,7 @@ $types = preg_replace ("/[^\x{4e00}-\x{9fa5}_a-zA-Z0-9]+/u", '', array_unique (c
 $keywords = array_unique (array_merge (array ('藝文活動', '台北藝文活動', '台北藝文', '新北藝文', '雙北藝文', '新北藝文活動', '藝文'), $types));
 $description = '台北' . date ('Y') . '年最新藝文活動都在這裡！利用新北市政府資料開放平台的 API 所製作的台北藝文活動網頁，讓大家可以輕鬆瀏覽以及獲得台北藝文活動相關訊息！此網站事使用 php 將 API 資料取下來後編輯成 HTML 頁面，並且放置到 Amazon S3。再利用 JavaScript 實作模糊搜尋功能。系統排程會在每日上午 6 時去取得最新的藝文活動資訊，並且放置到 S3 上做更新讓大家可以每天一早就獲得最新的訊息喔！';
 
-$view = load_view ('root' . DIRECTORY_SEPARATOR . 'index.php', array (
+$view = load_view (FCPATH . 'index.php', array (
     'title' => '台北 • 藝文活動',
     'url' => PROTOCOL . $bucket . '/' . NAME . '/',
     'types' => $types,
@@ -115,7 +115,7 @@ $view = load_view ('root' . DIRECTORY_SEPARATOR . 'index.php', array (
     'activities' => $activities,
   ));
 
-if (!write_file ('root' . DIRECTORY_SEPARATOR . 'index.html', preg_replace (array ('/\>[^\S ]+/su', '/[^\S ]+\</su', '/(\s)+/su'), array ('>', '<', '\\1'), $view)))
+if (!write_file (FCPATH . 'index.html', preg_replace (array ('/\>[^\S ]+/su', '/[^\S ]+\</su', '/(\s)+/su'), array ('>', '<', '\\1'), $view)))
   echo ' ➜ ' . color ('寫入 HTML 失敗..', 'r') . "\n";
 else
   echo ' ➜ ' . color ('寫入 HTML 完成！', 'g') . "\n";
@@ -124,7 +124,7 @@ echo str_repeat ('-', 80) . "\n";
 
 echo ' ➜ ' . color ('初始化 S3 工具', 'g');
 
-include_once 'libs/s3.php';
+include_once FCPATH . 'cmd/libs/S3.php';
 S3::init ($access, $secret);
 echo ' - ' . color ('初始化成功！', 'C') . "\n";
 echo str_repeat ('-', 80) . "\n";

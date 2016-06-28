@@ -67,9 +67,9 @@
           <span>開發</span>
           <ul>
             <li><a href='http://www.ioa.tw/' target='_blank'>開發人員</a></li>
-            <li><a href='http://www.ioa.tw/activities-taipei.html' target='_blank'>製作說明</a></li>
+            <li><a href='http://www.ioa.tw/taipei-activities.html' target='_blank'>製作說明</a></li>
             <li><a href='http://data.ntpc.gov.tw/od/detail?oid=781B822E-214A-4B9A-B4DB-32C9F4626D98' target='_blank'>資料來源</a></li>
-            <li><a href='https://github.com/comdan66/activities.taipei' target='_blank'>GitHub</a></li>
+            <li><a href='https://github.com/comdan66/taipei_activities' target='_blank'>GitHub</a></li>
           </ul>     
         </div>
 
