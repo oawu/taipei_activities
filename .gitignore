@@ -5,3 +5,5 @@ cmd/.sass-cache/*
 
 cmd/node_modules/*
 cmd/npm-debug.log
+
+/*.html
