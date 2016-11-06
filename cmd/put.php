@@ -8,7 +8,7 @@
 date_default_timezone_set ('Asia/Taipei');
 mb_internal_encoding ('UTF-8');
 mb_regex_encoding ("UTF-8");
-define ('PROTOCOL', "http://");
+define ('PROTOCOL', "https://");
 define ('FCPATH', implode (DIRECTORY_SEPARATOR, explode (DIRECTORY_SEPARATOR, dirname (str_replace (pathinfo (__FILE__, PATHINFO_BASENAME), '', __FILE__)))) . '/');
 define ('NAME', ($temps = array_filter (explode (DIRECTORY_SEPARATOR, FCPATH))) ? end ($temps) : '');
 

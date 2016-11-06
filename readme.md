@@ -9,12 +9,12 @@
 
 <br />
 ## DEMO
-LIVE DEMO: [http://works.ioa.tw/taipei_activities/](http://works.ioa.tw/taipei_activities/)
+LIVE DEMO: [https://works.ioa.tw/taipei_activities/index.html](https://works.ioa.tw/taipei_activities/index.html)
 
 
 <br />
 ## 說明
-* 利用[新北市政府資料開放平台](http://data.ntpc.gov.tw/)提供的[新北市政府文化局藝文活動](http://data.ntpc.gov.tw/od/detail?oid=781B822E-214A-4B9A-B4DB-32C9F4626D98) [API](http://data.ntpc.gov.tw/od/data/api/A97AEE33-4109-457B-9FB1-DB754A0BB100;jsessionid=817A22A73AC4887777D95713CC89C5C8?$format=json) 所製作的[台北 • 藝文活動](http://works.ioa.tw/taipei_activities/)。
+* 利用[新北市政府資料開放平台](http://data.ntpc.gov.tw/)提供的[新北市政府文化局藝文活動](http://data.ntpc.gov.tw/od/detail?oid=781B822E-214A-4B9A-B4DB-32C9F4626D98) [API](http://data.ntpc.gov.tw/od/data/api/A97AEE33-4109-457B-9FB1-DB754A0BB100;jsessionid=817A22A73AC4887777D95713CC89C5C8?$format=json) 所製作的[台北 • 藝文活動](https://works.ioa.tw/taipei_activities/index.html)。
 * 使用 [php](https://zh.wikipedia.org/zh-tw/PHP) 將 API 資料取下來後編輯成 [HTML](https://zh.wikipedia.org/zh-tw/HTML) 頁面，並且放置到 [Amazon S3](https://aws.amazon.com/tw/s3/)。放置部署過程中同時將頁面所需的 [css](https://zh.wikipedia.org/wiki/层叠样式表)、[JavaScript](https://zh.wikipedia.org/wiki/JavaScript) 一起上傳至 S3。
 * 上傳 S3 過程採用 php 執行，關鍵程式碼[在這裡](https://github.com/comdan66/taipei_activities/blob/master/cmd/put.php)，主要是利用 S3 針對檔案都有 tag 的特性，對上傳檔案做 [md5_file](http://php.net/manual/en/function.md5-file.php)，達成差異化更新的步驟，步驟如下：
 	1. 取得 S3 上所有檔案
